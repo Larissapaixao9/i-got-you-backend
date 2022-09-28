@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "devStart":"nodemon src/server.ts"
+    "devStart": "nodemon src/server.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^4.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
