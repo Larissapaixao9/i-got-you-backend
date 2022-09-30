@@ -1,5 +1,8 @@
 import * as auth_repository from '../repositories/auth_repository'
 import bcrypt from 'bcrypt'
+import dotenv from 'dotenv'
+import jwt from 'jsonwebtoken'
+dotenv.config()
 
 export async function verify_password(password:string, confirm_password:string){
     if(password!=confirm_password){
@@ -60,4 +63,18 @@ export async function is_password_correct(password:string, email:string) {
             message:"senha incorreta"
         }
     }
+}
+
+export async function create_token(email:string){
+    let token
+
+    const secret_key = process.env.JWT_SECRET_KEY
+
+    if(secret_key){
+        token = jwt.sign({
+            email
+        }, secret_key)
+    }
+
+    return token
 }

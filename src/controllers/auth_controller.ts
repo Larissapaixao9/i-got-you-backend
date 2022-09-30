@@ -23,6 +23,7 @@ export async function sign_in(req:Request, res:Response) {
 
     const verify_password = await authServices.is_password_correct(password, email)
 
+    const token = await authServices.create_token(email)
 
-    return res.sendStatus(200)
+    return res.status(200).send({token})
 }
