@@ -1,4 +1,5 @@
 import * as auth_repository from '../repositories/auth_repository'
+import * as session_repository from '../repositories/session_repository'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
@@ -44,7 +45,7 @@ export async function find_user_by_email_for_sign_in(email:string){
             message:"email ou senha não encontrado"
         }
     }
-    console.log(found_email)
+    return found_email
 }
 
 export async function is_password_correct(password:string, email:string) {
@@ -65,15 +66,20 @@ export async function is_password_correct(password:string, email:string) {
     }
 }
 
-export async function create_token(email:string){
+export async function create_token(email:string, id:number){
     let token
 
     const secret_key = process.env.JWT_SECRET_KEY
 
     if(secret_key){
         token = jwt.sign({
-            email
+            email,
+            id
         }, secret_key)
+    }
+
+    if(token){
+        await session_repository.start_new_session(email, token)
     }
 
     return token

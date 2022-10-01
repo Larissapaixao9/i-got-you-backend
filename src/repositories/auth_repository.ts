@@ -1,4 +1,4 @@
-import {prisma} from '../database/database'
+import prisma from '../database/database'
 //import { User } from '@prisma/client'
 
 //export type Iuser = Omit<User, "id" | "created_at" | "name">
