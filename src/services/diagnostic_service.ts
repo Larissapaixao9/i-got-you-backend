@@ -24,12 +24,9 @@ export async function get_user_essay(user_id:number){
 
     const filtering_result = await filter_humor(essay_from_day, good_humor_words, bad_humor_words)
 
-    if(filtering_result!=undefined){
-        return filtering_result
-    }
-    else{
-        return 
-    }
+    console.log(filtering_result)
+
+    return filtering_result
 
     function filter_humor(essay_from_day:any, good_humor_words:string, bad_humor_words:string){
 
@@ -82,6 +79,26 @@ export async function get_user_essay(user_id:number){
             }
         }
 
+        if(element_with_highest_frequency!=undefined){
+            if(good_humor_with_split.includes(element_with_highest_frequency)){
+                amount_good_words+=1
+                return {
+                    result:"bom humor",
+                    element_with_highest_frequency
+                        }
+            }
+        }
+
+        if(element_with_highest_frequency!=undefined){
+            if(bad_humor_with_split.includes(element_with_highest_frequency)){
+                amount_bad_words+=1
+                return {
+                    result:"mau humor",
+                    element_with_highest_frequency
+                        }
+            }
+        }
+
         if(element_with_highest_frequency==undefined){
             for(let i=0;i<bad_humor_with_split.length;i++){
                 if(filtered_essay.includes(bad_humor_with_split[i])){
@@ -92,12 +109,19 @@ export async function get_user_essay(user_id:number){
         }
 
         if(amount_good_words>amount_bad_words){
-            console.log('porvavelmente vc esta com bom humor')
-        }
-        if(amount_good_words>amount_bad_words){
-            console.log('porvavelmente vc esta com mal humor')
+        return {
+            result:"bom humor",
+            element_with_highest_frequency
+                }
         }
 
-        
+        if(amount_good_words>amount_bad_words){
+            return {
+            result:"mau homor",
+            element_with_highest_frequency
+                }
+        }
+
+
     }
 }

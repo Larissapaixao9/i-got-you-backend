@@ -6,5 +6,5 @@ export async function get_diagnostic(req:Request, res:Response){
 
     const get_user_essay = await diagnostic_service.get_user_essay(user_id)
 
-    return res.sendStatus(200)
+    return res.status(200).send(get_user_essay)
 }
