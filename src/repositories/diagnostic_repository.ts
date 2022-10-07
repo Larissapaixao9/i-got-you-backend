@@ -3,9 +3,12 @@ import prisma from "../database/database";
 export async function get_user_essay(user_id:number){
 
     const essay = await prisma.essay.findMany({
-        where:{"user_id":user_id},
+        where:{"user_id":user_id, texts:{
+            mode: 'insensitive'
+        }},
         orderBy:{ "created_at": 'desc' },
         take:1
+
     })
 
     return essay

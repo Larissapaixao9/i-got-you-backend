@@ -25,5 +25,9 @@ export async function sign_in(req:Request, res:Response) {
 
     const token = await authServices.create_token(email,find_user_by_email.id)
 
-    return res.status(200).send({token})
+    const { name } = find_user_by_email
+
+    //res.cookie('token', token, { httpOnly: true });
+
+    return res.status(200).send({token, name})
 }

@@ -75,7 +75,9 @@ export async function create_token(email:string, id:number){
         token = jwt.sign({
             email,
             id
-        }, secret_key)
+        }, secret_key, {
+            expiresIn:1800
+        })
     }
 
     if(token){
