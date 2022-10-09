@@ -48,3 +48,11 @@ export  async function empty_logup_info(){
         confirmPassword: ""
     }
 }
+
+export async function passwords(){
+    
+    return {
+        password: "larissa",
+        confirm_password: "larissa"
+    }
+}
