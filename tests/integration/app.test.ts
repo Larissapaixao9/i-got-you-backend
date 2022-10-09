@@ -138,4 +138,171 @@ beforeEach(async () => {
   
         expect(status).toEqual(201)
     });
+
+    it('Deve retornar 422 se dados vierem vazios', async()=>{
+      const user = await auth_factory.fixed_user()
+
+      const body = await auth_factory.user_login()
+
+      await supertest(app).post('/sign-up').send(user)
+
+      const login_data = await supertest(app).post('/sign-in').send(body)
+
+      //When using Supertest, the result comes as result.body
+      const token = login_data.body.token;
+      console.log(login_data)
+
+      const correct_thought = ''
+
+      const send_thought = await supertest(app).post('/home').send(correct_thought).set("Authorization", `Bearer ${token}`)
+
+      const status = send_thought.status
+
+      expect(status).toEqual(422)
+  });
+
+    it('Deve retornar 401 quando token vier vazio', async()=>{
+
+      const user_for_logup = await auth_factory.fixed_user()
+
+      const user = await auth_factory.user_login()
+
+      const correct_thought = await thought_factory.correct_thought()
+
+      await supertest(app).post('/sign-up').send(user_for_logup)
+
+      const login_data = await supertest(app).post('/sign-in').send(user);
+
+      //When using Supertest, the result comes as result.body
+      const token = login_data.body.token;
+
+      //using set to send the Authorization Bearer Token correctly
+      const send_thought = await supertest(app).post('/home').send(correct_thought)
+
+      const status = send_thought.status
+
+      expect(status).toEqual(401)
+
+    })
+
+    it('Deve retornar 401 quando vier com Authorization errado', async()=>{
+
+      const user_for_logup = await auth_factory.fixed_user()
+
+      const user = await auth_factory.user_login()
+
+      const correct_thought = await thought_factory.correct_thought()
+
+      await supertest(app).post('/sign-up').send(user_for_logup)
+
+      const login_data = await supertest(app).post('/sign-in').send(user);
+
+      //When using Supertest, the result comes as result.body
+
+      const token = login_data.body.token;
+
+      //using set to send the Authorization Bearer Token correctly
+      const send_thought = await supertest(app).post('/home').send(correct_thought).set("A", `Bearer ${token}`)
+
+      const status = send_thought.status
+
+      expect(status).toEqual(401)
+
+    })
+
+    it('Deve retornar 401 para Bearer incorreto', async()=>{
+
+      const user_for_logup = await auth_factory.fixed_user()
+
+      const user = await auth_factory.user_login()
+
+      const correct_thought = await thought_factory.correct_thought()
+
+      await supertest(app).post('/sign-up').send(user_for_logup)
+
+      const login_data = await supertest(app).post('/sign-in').send(user);
+
+      //When using Supertest, the result comes as result.body
+
+      const token = login_data.body.token;
+
+      //using set to send the Authorization Bearer Token correctly
+      const send_thought = await supertest(app).post('/home').send(correct_thought).set("Authorization", `B ${token}`)
+
+      const status = send_thought.status
+
+      expect(status).toEqual(401)
+
+    })
+})
+
+describe('Testa GET /diagnostic ', () => {
+  it('Deve retornar 200, se dados vierem corretamente', async()=>{
+    const user_for_logup = await auth_factory.fixed_user()
+
+    const user = await auth_factory.user_login()
+
+    const correct_thought = await thought_factory.correct_thought()
+
+    await supertest(app).post('/sign-up').send(user_for_logup)
+
+    const login_data = await supertest(app).post('/sign-in').send(user);
+
+    const token = login_data.body.token;
+
+    const send_thought = await supertest(app).post('/home').send(correct_thought).set("Authorization", `Bearer ${token}`)
+
+    const result = await supertest(app).get('/diagnostic').set("Authorization", `Bearer ${token}`)
+
+    const status = result.status
+
+    expect(status).toEqual(200)
+
+  });
+
+  it('Deve retornar 401 quando token vier vazio', async()=>{
+    const user_for_logup = await auth_factory.fixed_user()
+
+    const user = await auth_factory.user_login()
+
+    const correct_thought = await thought_factory.correct_thought()
+
+    await supertest(app).post('/sign-up').send(user_for_logup)
+
+    const login_data = await supertest(app).post('/sign-in').send(user);
+
+    const token = login_data.body.token;
+
+    const send_thought = await supertest(app).post('/home').send(correct_thought).set("Authorization", `Bearer ${token}`)
+
+    const result = await supertest(app).get('/diagnostic').set("Authorization", `Bearer ${''}`)
+
+    const status = result.status
+
+    expect(status).toEqual(401)
+
+  });
+
+  it('Deve retornar 401 quando vier com Authorization errado', async()=>{
+    const user_for_logup = await auth_factory.fixed_user()
+
+    const user = await auth_factory.user_login()
+
+    const correct_thought = await thought_factory.correct_thought()
+
+    await supertest(app).post('/sign-up').send(user_for_logup)
+
+    const login_data = await supertest(app).post('/sign-in').send(user);
+
+    const token = login_data.body.token;
+
+    const send_thought = await supertest(app).post('/home').send(correct_thought).set("Authorization", `Bearer ${token}`)
+
+    const result = await supertest(app).get('/diagnostic').set("A", `Bearer ${token}`)
+
+    const status = result.status
+
+    expect(status).toEqual(401)
+
+  });
 })
