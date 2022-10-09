@@ -115,9 +115,9 @@ export async function get_user_essay(user_id:number){
                 }
         }
 
-        if(amount_good_words>amount_bad_words){
+        if(amount_good_words<amount_bad_words){
             return {
-            result:"mau homor",
+            result:"mau humor",
             element_with_highest_frequency
                 }
         }
