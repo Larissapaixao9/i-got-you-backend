@@ -1,35 +1,33 @@
 {
-  "name": "i-got-you-backend",
+  "name": "prisma-heroku",
   "version": "1.0.0",
-  "description": "",
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
-  },
-  "main": "index.js",
+  "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "prisma generate",
+    "dev": "PORT=3000 node src/index.js",
+    "start": "node src/index.js",
     "devStart": "nodemon src/server.ts",
-    "start":"node dest/src/server.js",
     "postinstall": "tsc",
     "test:integration": "dotenv -e .env.test prisma migrate dev && NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -- -i --watchAll --testPathPattern=tests/integration",
     "test:unit": "dotenv -e .env.test prisma migrate dev && NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -- -i --coverage --watchAll --testPathPattern=tests/unit"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^4.4.0",
-    "@types/dotenv": "^8.2.0",
-    "bcrypt": "^5.0.1",
+    "@prisma/client": "4.4.0",
+    "@types/node": "^18.8.3",
+    "bcrypt": "^5.1.0",
+    "body-parser": "1.20.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "dotenv-cli": "^6.0.0",
-    "express": "^4.18.1",
-    "express-async-errors": "^3.1.1",
-    "jest": "^29.1.1",
+    "express": "^4.18.2",
+    "jest": "^29.1.2",
     "joi": "^17.6.1",
     "jsonwebtoken": "^8.5.1",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "prisma": "4.4.0",
+    "supertest": "^6.3.0",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -37,12 +35,7 @@
     "@types/express": "^4.17.14",
     "@types/jest": "^29.1.2",
     "@types/jsonwebtoken": "^8.5.9",
-    "@types/node": "^18.7.23",
-    "@types/supertest": "^2.0.12",
-    "prisma": "^4.4.0",
-    "supertest": "^6.3.0",
-    "ts-jest": "^29.0.3",
-    "ts-node": "^10.9.1",
+    "express-async-errors": "^3.1.1",
     "typescript": "^4.8.4"
   }
 }
