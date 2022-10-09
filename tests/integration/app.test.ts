@@ -2,6 +2,7 @@ import supertest from "supertest";
 import prisma from "../../src/database/database";
 import app from '../../src/app'
 import * as auth_factory from '../factories/user_factory'
+import * as thought_factory from '../factories/thought_factory'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -114,3 +115,27 @@ beforeEach(async () => {
       expect(status).toEqual(422)
     })
   })
+
+  describe('Testa POST /home ', () => {
+    it('Deve retornar 201, se cadastrado corretamente', async()=>{
+        const user = await auth_factory.fixed_user()
+
+        const body = await auth_factory.user_login()
+  
+        await supertest(app).post('/sign-up').send(user)
+
+        const login_data = await supertest(app).post('/sign-in').send(body)
+
+        //When using Supertest, the result comes as result.body
+        const token = login_data.body.token;
+        console.log(login_data)
+
+        const correct_thought = await thought_factory.correct_thought()
+
+        const send_thought = await supertest(app).post('/home').send(correct_thought).set("Authorization", `Bearer ${token}`)
+
+        const status = send_thought.status
+  
+        expect(status).toEqual(201)
+    });
+})
