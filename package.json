@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "PORT=3000 node src/index.js",
-    "start": "node src/index.js",
+    "start": "node dest/src/server.js",
     "prisma": "prisma migrate dev",
     "prisma-seed": "prisma db seed",
     "devStart": "nodemon src/server.ts",
