@@ -6,9 +6,11 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "scripts": {
-    "build": "prisma generate",
+    "build": "tsc",
     "dev": "PORT=3000 node src/index.js",
     "start": "node src/index.js",
+    "prisma":"prisma migrate dev",
+    "prisma-seed": "prisma db seed",
     "devStart": "nodemon src/server.ts",
     "postinstall": "tsc",
     "test:integration": "dotenv -e .env.test prisma migrate dev && prisma db seed --preview-feature && NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -- -i --watchAll --testPathPattern=tests/integration",
@@ -40,6 +42,9 @@
     "@types/jsonwebtoken": "^8.5.9",
     "@types/supertest": "^2.0.12",
     "express-async-errors": "^3.1.1",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "supertest": "^6.3.0",
+    "ts-jest": "^28.0.7",
+    "ts-node": "^10.9.1"
   }
 }
