@@ -8,17 +8,40 @@ datasource db {
 }
 
 model User {
-  email String  @unique
-  id    Int     @id @default(autoincrement())
-  name  String?
-  posts Post[]
+  id         Int       @id @default(autoincrement())
+  name       String
+  email      String    @unique
+  password   String
+  created_at DateTime  @default(now())
+  essays     Essay[]
+  session    Session[]
+  @@map("users")
 }
 
-model Post {
-  authorId  Int?
-  content   String?
-  id        Int     @id @default(autoincrement())
-  published Boolean @default(false)
-  title     String
-  author    User?   @relation(fields: [authorId], references: [id])
+model Session {
+  id        Int      @id @default(autoincrement())
+  token     String
+  is_on     Boolean  @default(true)
+  create_at DateTime @default(now())
+  email     String
+  user      User     @relation(fields: [email], references: [email])
+  @@map("sessions")
+}
+
+model Essay {
+  id         Int      @id @default(autoincrement())
+  texts      String
+  user_id    Int
+  created_at DateTime @default(now())
+  user       User     @relation(fields: [user_id], references: [id])
+  @@map("essays")
+}
+
+model Word {
+  id           Int      @id @default(autoincrement())
+  good_mood    String
+  bad_mood     String
+  neutral_mood String
+  created_at   DateTime @default(now())
+  @@map("words")
 }
