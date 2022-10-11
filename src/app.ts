@@ -5,6 +5,7 @@ import  {errorHanddlingMiddleware}  from '../src/middlewares/error_handler_middl
 import router from '../src/routers/mainRouter'
 import dotenv from 'dotenv'
 dotenv.config()
+const domainsFromEnv = process.env.CORS_DOMAINS || ""
 
 const app = express();
 app.use(cors());
