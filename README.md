@@ -16,7 +16,7 @@ Para rodar, abra o terminal na pasta do projeto e execute npm run devStart
 | `email` | `string` | **Obrigatório**.|
 | `name` | `string` | **Obrigatório**.|
 | `password`       | `string`|  **Obrigatório**.|
-| `confirmPassword`       | `string`|  **Obrigatório**.|
+| `confirm_password`       | `string`|  **Obrigatório**.|
 
 
 #### login do usuário (retorna Token)
