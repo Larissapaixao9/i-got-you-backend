@@ -13,7 +13,7 @@
     "prisma-seed": "prisma db seed",
     "devStart": "nodemon src/server.ts",
     "postinstall": "tsc",
-        "migrate": "npx prisma migrate dev",
+    "migrate": "npx prisma migrate dev",
     "test:integration": "dotenv -e .env.test prisma migrate dev && prisma db seed --preview-feature && NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -- -i --watchAll --testPathPattern=tests/integration",
     "test:unit": "dotenv -e .env.test prisma migrate dev && NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -- -i --coverage --watchAll --testPathPattern=tests/unit"
   },
@@ -42,6 +42,7 @@
     "@types/jsonwebtoken": "^8.5.9",
     "@types/supertest": "^2.0.12",
     "express-async-errors": "^3.1.1",
+    "rimraf": "^3.0.2",
     "supertest": "^6.3.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
