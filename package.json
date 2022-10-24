@@ -1,14 +1,15 @@
 {
   "name": "prisma-heroku",
   "version": "1.0.0",
-  "license": "MIT",
+  "main":"index.js",
+  "license": "ISC",
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
   "scripts": {
     "build": "tsc",
     "dev": "PORT=3000 node src/index.js",
-    "start": "node dest/src/server.js",
+    "start": "node ./dest/src/server.js",
     "prisma": "prisma migrate dev",
     "prisma-seed": "prisma db seed",
     "devStart": "nodemon src/server.ts",
