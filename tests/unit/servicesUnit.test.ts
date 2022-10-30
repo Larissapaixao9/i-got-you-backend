@@ -38,6 +38,10 @@ import * as auth_factory from '../factories/user_factory'
     })
 
     it('deve criar novo usuario', async()=>{
+      //adicionar teste
+    })
 
+    it('Deve entrar em Home', async()=>{
+      //adicionar teste
     })
 })
